@@ -1,4 +1,4 @@
-# TARGET-seq-plus
+# TARGET-seq+
 
 TARGET-seq+ is a modified version of TARGET-seq, a multi-omic method for simultaneous capture of single-cell genotype, RNA-seq, and surface protein expression. By incorporating elements of the Smart-seq3 chemistry, TARGET-seq+ increases the number of cells passing quality filters and the number of genes detected per cell, thus improving the detection of lowly expressed genes, whilst retaining high-fidelity single-cell genotyping. 
 
@@ -43,7 +43,9 @@ These steps take targeted amplicon sequencing FASTQ files and assign a genotype 
 
 ## 3. Pre-processing of transcriptome data
 
-To pre-process TARGET-seq+ transcriptome data, we have written a custom python pipeline: [TARGET-seq-plus-RNA](https://github.com/asgerjakobsen/TARGET-seq-plus-RNA). This takes FASTQ files and performs single-cell demultiplexing, mapping, and gene feature counting. The gene counts from StarSOLO are used in downstream analysis.
+To pre-process TARGET-seq+ transcriptome data, we have written a custom python pipeline: [TARGET-seq-plus-RNA](https://github.com/asgerjakobsen/TARGET-seq-plus-RNA). 
+
+This takes FASTQ files and performs single-cell demultiplexing, mapping, and gene feature counting. The gene counts from StarSOLO are used in downstream analysis.
 
 ## 4. Integration of transcriptome data with genotyping and FACS indexing
 
