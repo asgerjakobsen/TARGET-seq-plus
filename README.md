@@ -49,7 +49,7 @@ This takes FASTQ files and performs single-cell demultiplexing, mapping, and gen
 
 ## 4. Integration of transcriptome data with genotyping and FACS indexing
 
-Integration of transcriptome data with genotyping and FACS indexing data relies on a shared cell identifiers. 
+Integration of transcriptome data with genotyping and FACS indexing data relies on shared cell identifiers. 
 
 The transcriptome cell barcodes in the outputs from the pre-processing pipeline are derived from the combination of libraries with unique i5/i7 plate indexes and oligo-dT cell barcodes.
 
