@@ -45,7 +45,7 @@ These steps take targeted amplicon sequencing FASTQ files and assign a genotype 
 
 To pre-process TARGET-seq+ transcriptome data, we have written a custom python pipeline: [TARGET-seq-plus-RNA](https://github.com/asgerjakobsen/TARGET-seq-plus-RNA). 
 
-This takes FASTQ files and performs single-cell demultiplexing, mapping, and gene feature counting. The gene counts from StarSOLO are used in downstream analysis.
+This takes FASTQ files and performs single-cell demultiplexing, mapping, and gene feature counting. The gene counts from STARsolo are used in downstream analysis.
 
 ## 4. Integration of transcriptome data with genotyping and FACS indexing
 
