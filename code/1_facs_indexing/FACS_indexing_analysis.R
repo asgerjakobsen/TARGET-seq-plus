@@ -12,7 +12,10 @@ Sort5_index_data_path <- "data/FACS_indexing"
 # Index data files
 files_Sort5 <- list.files(path = Sort5_index_data_path, pattern = ".*.csv",
                        full.names = T)
+
+# Can append files from other FACS sorts
 # all_files <- append(files_Sort5)
+
 all_files <- files_Sort5
 
 
@@ -98,95 +101,37 @@ index_data_all_plates <- index_data_all_plates %>%
 
 index_data_all_plates <- index_data_all_plates %>% 
   mutate(Lin = case_when(
-    Sort == "S3" & Lin_PECy5_7AAD <3750 ~ "Lin-", 
-    Sort == "S4" & Lin_PECy5_7AAD <2950 ~ "Lin-", 
     Sort == "S5" & Lin_PECy5_7AAD <2900 ~ "Lin-", 
-    Sort == "S6" & Sample %in% c("NOC153") & Lin_PECy5_7AAD <2600 ~ "Lin-", 
-    Sort == "S6" & Sample %in% c("NOC062", "NOC071", "NOC115", "NOC117") & Lin_PECy5_7AAD <2300 ~ "Lin-", 
-    Sample %in% c("NOC156") & Lin_PECy5_7AAD <2300 ~ "Lin-", 
     TRUE ~ "Lin+")) %>% 
   mutate(CD34 = case_when(
-    Sort == "S3" & CD34_APC <1300 ~ "CD34-", 
-    Sort == "S4" & CD34_APC <1000 ~ "CD34-", 
     Sort == "S5" & CD34_APC <1000 ~ "CD34-", 
-    Sort == "S6" & CD34_APC <1000 ~ "CD34-", 
-    Sample %in% c("NOC156") & CD34_APC <900 ~ "CD34-", 
     TRUE ~ "CD34+")) %>% 
   mutate(CD38 = case_when(
-    Sort == "S3" & CD38_BV421 <1600 ~ "CD38-", 
-    Sort == "S4" & CD38_BV421 <1000 ~ "CD38-", 
     Sort == "S5" & CD38_BV421 <900 ~ "CD38-", 
-    Sort == "S6" & CD38_BV421 <850 ~ "CD38-", 
-    Sample %in% c("NOC156") & CD38_BV421 <900 ~ "CD38-", 
     TRUE ~ "CD38+")) %>% 
   mutate(CD10 = case_when(
-    Sort == "S3" & CD38 == "CD38-" & CD10_BV605 <5500 ~ "CD10-", 
-    Sort == "S3" & CD38 == "CD38+" & CD10_BV605 <13000 ~ "CD10-", 
-    Sort == "S4" & CD38 == "CD38-" & CD10_BV605 <4600 ~ "CD10-", 
-    Sort == "S4" & CD38 == "CD38+" & CD10_BV605 <5500 ~ "CD10-", 
     Sort == "S5" & CD38 == "CD38-" & CD10_BV605 <5000 ~ "CD10-", 
     Sort == "S5" & CD38 == "CD38+" & CD10_BV605 <5200 ~ "CD10-", 
-    Sort == "S6" & CD38 == "CD38-" & CD10_BV605 <4400 ~ "CD10-", 
-    Sort == "S6" & CD38 == "CD38+" & CD10_BV605 <4900 ~ "CD10-", 
-    Sample == "NOC156" & CD38 == "CD38-" & CD10_BV605 <3000 ~ "CD10-", 
-    Sample == "NOC156" & CD38 == "CD38+" & CD10_BV605 <3500 ~ "CD10-", 
     TRUE ~ "CD10+")) %>% 
   mutate(CD45RA = case_when(
-    Sort == "S3" & CD45RA_BB515 <1500 ~ "CD45RA-", 
-    Sort == "S4" & CD45RA_BB515 <980 ~ "CD45RA-", 
-    Sort == "S5" & Sample %in% c("NOC153", "NOC002") & CD45RA_BB515 <1000 ~ "CD45RA-", 
-    Sort == "S5" & Sample %in% c("NOC131", "NOC171", "NOC072") & CD45RA_BB515 <1000 ~ "CD45RA-", 
-    Sort == "S6" & Sample %in% c("NOC062") & CD45RA_BB515 <1000 ~ "CD45RA-", 
-    Sort == "S6" & Sample %in% c("NOC153", "NOC071", "NOC115", "NOC117") & CD45RA_BB515 <1400 ~ "CD45RA-", 
-    Sample %in% c("NOC156") & CD45RA_BB515 <1100 ~ "CD45RA-", 
+    Sort == "S5" & CD45RA_BB515 <1000 ~ "CD45RA-", 
     TRUE ~ "CD45RA+")) %>% 
   mutate(CD90 = case_when(
-    Sort == "S3" & CD90_PECy7  <1500 ~ "CD90-", 
-    Sort == "S4" & CD90_PECy7  <700 ~ "CD90-", 
     Sort == "S5" & CD90_PECy7  <720 ~ "CD90-", 
-    Sort == "S6" & Sample %in% c("NOC062") & CD90_PECy7  <900 ~ "CD90-",
-    Sort == "S6" & Sample %in% c("NOC071", "NOC153", "NOC115", "NOC117") & CD90_PECy7  <1100 ~ "CD90-",
-    Sample %in% c("NOC156") & CD90_PECy7  <700 ~ "CD90-",
     TRUE ~ "CD90+")) %>% 
   mutate(CD123 = case_when(
-    Sort == "S3" & Sample == "NOC108" & CD123_PE <335 ~ "CD123-",
-    Sort == "S3" & Sample == "NOC108" & between(CD123_PE, 335, 11000) ~ "CD123mid",
-    Sort == "S3" & Sample == "NOC132" & CD123_PE <650 ~ "CD123-",
-    Sort == "S3" & Sample == "NOC132" & between(CD123_PE, 650, 15000) ~ "CD123mid",
-    Sort == "S3" & Sample %in% c("NOC153","NOC031") & CD123_PE <450 ~ "CD123-",
-    Sort == "S3" & Sample %in% c("NOC153","NOC031") & between(CD123_PE, 450, 11000) ~ "CD123mid",
-    Sort == "S4" & Sample == "NOC137" & CD123_PE <350 ~ "CD123-",
-    Sort == "S4" & Sample == "NOC137" & between(CD123_PE, 350, 10000) ~ "CD123mid",
-    Sort == "S4" & Sample %in% c("NOC153","NOC062","NOC062","NOC131","NOC117") & CD123_PE <450 ~ "CD123-",
-    Sort == "S4" & Sample %in% c("NOC153","NOC062","NOC131","NOC117") & between(CD123_PE, 450, 11000) ~ "CD123mid",
-    Sort == "S5" & Sample %in% c("NOC002", "NOC072") & CD123_PE < 400 ~ "CD123-",
-    Sort == "S5" & Sample == "NOC171" & CD123_PE <150 ~ "CD123-",
-    Sort == "S5" & Sample %in% c("NOC153","NOC131") & CD123_PE <300 ~ "CD123-",
-    Sort == "S5" & Sample %in% c("NOC002", "NOC072") & between(CD123_PE, 400, 12000) ~ "CD123mid",
-    Sort == "S5" & Sample == "NOC171" & between(CD123_PE, 150, 2500) ~ "CD123mid",
-    Sort == "S5" & Sample %in% c("NOC153","NOC131") & between(CD123_PE, 300, 12000) ~ "CD123mid",
-    Sort == "S6" & Sample %in% c("NOC153",  "NOC115") & CD123_PE <400 ~ "CD123-",
-    Sort == "S6" & Sample %in% c("NOC117", "NOC071","NOC062") & CD123_PE <450 ~ "CD123-",
-    Sample %in% c("NOC156") & between(CD123_PE, 300, 10000) ~ "CD123mid",
-    Sample %in% c("NOC156") & CD123_PE <300 ~ "CD123-",
-    Sort == "S6" & between(CD123_PE, 400, 9500) ~ "CD123mid",
+    Sort == "S5" & CD123_PE <300 ~ "CD123-",
+    Sort == "S5" & between(CD123_PE, 300, 12000) ~ "CD123mid",
     TRUE ~ "CD123hi")) %>% 
   mutate(CD49f = case_when(
-    Sort == "S3" & CD49f_PEDaz <1400 ~ "CD49f-", #1900
-    Sort == "S4" & CD49f_PEDaz <1250 ~ "CD49f-", #1800
-    Sort == "S5" & CD49f_PEDaz < 1000 ~ "CD49f-", #1600
-    Sort == "S6" & CD49f_PEDaz <1000 ~ "CD49f-", #1700
-    Sample == "NOC156"  ~ "NA",
+    Sort == "S5" & CD49f_PEDaz < 1000 ~ "CD49f-",
     TRUE ~ "CD49f+")) %>% 
   mutate(CD117 = case_when(
-    Sort == "S3" & CD117_BV785 <3400 ~ "CD117-",
-    Sort == "S4" & CD117_BV785 <2000 ~ "CD117-",
     Sort == "S5" & CD117_BV785 < 1800 ~ "CD117-",
-    Sort == "S6" & CD117_BV785 <1500 ~ "CD117-",
-    Sample == "NOC156" & CD117_BV785 <3000 ~ "CD117-",
     TRUE ~ "CD117+"))
 
 
+# Then define immunophenotypic populations based on the protein expression pattern
 
 index_data_all_plates <- index_data_all_plates %>% 
   mutate(Lin_CD34_CD38 = case_when(
