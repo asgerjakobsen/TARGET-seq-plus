@@ -20,6 +20,8 @@ We provide an example dataset for testing the analysis workflow in the `data` di
 
 ## 1. Analysis of FACS indexing data
 
+Run the [FACS_indexing_analysis.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/1_facs_indexing/FACS_indexing_analysis.R) script.
+
 This step gathers cell surface immunophenotyping data from FACS index sorting files into a single table. 
 From these data, we know which cell type was sorted into each well and the sample donor ID. This is important for defining which cells came from control and test samples when performing downstream analysis.
 
@@ -31,15 +33,17 @@ The output of this step is a table of cell IDs and FACS indexing values for the 
 
 These steps take targeted amplicon sequencing FASTQ files and assign a genotype to each cell at each locus of interest.
 
-1. Run `01_Make_genotyping_demultiplexing_file.R` to generate a demultiplexing file for use in the TARGET-seq SCpipeline and a metadata file for genotyping analysis.
+1. Run the [01_Make_genotyping_demultiplexing_file.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/01_make_genotyping_demultiplexing_file.R) script to generate a demultiplexing file for use in the TARGET-seq SCpipeline and a metadata file for genotyping analysis.
 
-2. Run the TARGET-seq SCpipeline (https://github.com/albarmeira/TARGET-seq) to demultiplex and map the single-cell genotyping data and generate tables of allelic counts for each mutation locus per cell. 
+2. Run the TARGET-seq SCpipeline (https://github.com/albarmeira/TARGET-seq) to demultiplex and map the single-cell genotyping data and generate tables of allelic counts for each mutation locus per cell. Allelic counts are found in the `Summarize` directory.
 
-3. Perform genotyping calling for each mutation locus: `02_Genotype_calling_NOC131_DNMT3A_I780T.R` and `03_Genotype_calling_NOC131_DNMT3A_Q606X.R`
+3. Perform genotyping calling for each mutation locus: 
+  - [02_Genotype_calling_NOC131_DNMT3A_I780T.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/02_Genotype_calling_NOC131_DNMT3A_I780T.R)
+  - [03_Genotype_calling_NOC131_DNMT3A_Q606X.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/03_Genotype_calling_NOC131_DNMT3A_Q606X.R)
 
-4. Integrate the genotypes within single cells to assign clonal identities within each sample: `04_Clone_assignment_NOC131.R`
+4. Integrate the genotypes within single cells to assign clonal identities within each sample: [04_Clone_assignment_NOC131.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/04_clone_assignment_NOC131.R)
 
-5. Integrate the FACS indexing and single-cell genotyping data to make a metadata file for multiomic analysis: `05_Integrate_metadata.R`
+5. Integrate the FACS indexing and single-cell genotyping data to make a metadata file for multiomic analysis: [05_Integrate_metadata.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/05_Integrate_metadata.R)
 
 ## 3. Pre-processing of transcriptome data
 
@@ -53,7 +57,7 @@ Integration of transcriptome data with genotyping and FACS indexing data relies 
 
 The transcriptome cell barcodes in the outputs from the pre-processing pipeline are derived from the combination of libraries with unique i5/i7 plate indexes and oligo-dT cell barcodes.
 
-The `Reformat_counts_matrix.R` script joins the transcriptome cell barcodes to the descriptive cell IDs from FACS that match those in the other metadata. It then takes the outputs from STARsolo and reformats the transcriptome counts matrix with gene name and cell IDs. 
+Run the [Reformat_counts_matrix.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/3_rna/Reformat_counts_matrix.R) script to join the transcriptome cell barcodes to the descriptive cell IDs from FACS that match those in the other metadata. This then takes the outputs from STARsolo and reformats the transcriptome counts matrix with gene name and cell IDs. 
 
 The resulting counts matrix can be used with the integrated metadata file in single-cell genomics analysis packages for downstream analysis.
 
