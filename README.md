@@ -10,7 +10,7 @@ This repository contains a collection of scripts for the analysis of TARGET-seq+
 
 ## Analysis overview
 
-Broadly, the analysis workflow follows the following steps:
+Broadly, the analysis workflow contains the following steps:
 1.	Analysis of FACS indexing data
 2.	Analysis of single-cell genotyping data within each patient sample and integration with flow cytometry indexing data to generate metadata for the full dataset
 3.	Pre-processing of transcriptome data
