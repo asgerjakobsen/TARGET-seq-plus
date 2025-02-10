@@ -1,5 +1,12 @@
 # Analysis of TARGET-seq+ FACS indexing data
 
+
+# This step gathers cell surface immunophenotyping data from FACS index sorting files into a single table. 
+# From these data, we know which cell type was sorted into each well and the sample donor ID. 
+# This is important for defining which cells came from control and test samples when performing downstream analysis.
+
+# In this example, we import FACS index files exported from the Sony MA900 cell sorter.
+
 ## Load the relevant libraries ####
 library(tidyverse)
 
@@ -7,7 +14,6 @@ library(tidyverse)
 
 # Paths to indexing data files
 Sort5_index_data_path <- "data/FACS_indexing"
-
 
 # Index data files
 files_Sort5 <- list.files(path = Sort5_index_data_path, pattern = ".*.csv",
