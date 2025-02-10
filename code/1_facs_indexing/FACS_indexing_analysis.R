@@ -58,7 +58,7 @@ extract_sample_name <- function(file_path) {
 
 # Define a function that reads file and reformats index columns to obtain sample ID
 read_index_file <- function(file_path) {
-  file <- read_csv(all_files[8]) %>% 
+  file <- read_csv(file_path) %>% 
     mutate(Index = index_name(Index)) %>% 
     mutate(Sort = extract_sort_number(file_path)) %>% 
     mutate(Plate = paste(extract_sort_number(file_path),
