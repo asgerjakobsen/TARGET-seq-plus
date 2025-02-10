@@ -23,7 +23,7 @@ We provide an example dataset for testing the analysis workflow in the `data` di
 Run the [FACS_indexing_analysis.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/1_facs_indexing/FACS_indexing_analysis.R) script.
 
 This step gathers cell surface immunophenotyping data from FACS index sorting files into a single table. 
-From these data, we know which cell type was sorted into each well and the sample donor ID. This is important for defining which cells came from control and test samples when performing downstream analysis.
+From these data, we know which immunophenotypic cell type was sorted into each well and the sample donor ID. This is important for defining which cells belong to the control and test samples when performing downstream analysis.
 
 Using the cell surface immunofluorescence values, we can gate for positive and negative cells to define immunophenotypic populations.
 
@@ -38,14 +38,14 @@ These steps take targeted amplicon sequencing FASTQ files and assign a genotype 
 
 2. Run the TARGET-seq SCpipeline (https://github.com/albarmeira/TARGET-seq) to demultiplex and map the single-cell genotyping data and generate tables of allelic counts for each mutation locus per cell. Allelic counts are found in the `Summarize` directory.
 
-3. Perform genotyping calling for each mutation locus: 
+3. Perform genotyping calling for each mutant locus (the second scripts also utilizes a germline SNP to control for allelic drop-out): 
     - [02_Genotype_calling_NOC131_DNMT3A_I780T.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/02_Genotype_calling_NOC131_DNMT3A_I780T.R)
     - [03_Genotype_calling_NOC131_DNMT3A_Q606X.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/03_Genotype_calling_NOC131_DNMT3A_Q606X.R)
 
 4. Integrate the genotypes within single cells to assign clonal identities within each sample:
     - [04_Clone_assignment_NOC131.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/04_clone_assignment_NOC131.R)
 
-5. Integrate the FACS indexing and single-cell genotyping data to make a metadata file for multiomic analysis:
+5. Integrate the FACS indexing and single-cell genotyping data to make a metadata file for multi-omic analysis:
     - [05_Integrate_metadata.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/05_Integrate_metadata.R)
 
 ## 3. Pre-processing of transcriptome data
