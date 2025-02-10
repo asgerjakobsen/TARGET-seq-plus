@@ -408,9 +408,3 @@ genotyping_joined <- genotyping_joined %>%
 genotyping_joined %>% write_tsv(paste("data/genotyping/sample_", sample, "/genotyping_summary_", sample, "_", mutation_name, ".tsv", sep = "")) 
 
 
-genotyping_submitted <- read_tsv("~/OneDrive - Nexus365/CHIP Project/Paper/Data submission/figshare/TARGET-seq_genotyping_data.tsv")
-
-mismatch <- genotyping_joined %>% 
-  left_join(select(genotyping_submitted, Cell, mutation, genotype) %>% rename(genotype.paper = genotype) %>% filter(mutation == mutation_name)) %>% 
-  filter(genotype != genotype.paper)
-

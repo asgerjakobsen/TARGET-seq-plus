@@ -2,9 +2,6 @@
 
 ## Load the relevant libraries ####
 library(tidyverse)
-library(cowplot)
-theme_set(theme_cowplot())
-
 
 ## Import data ####
 
@@ -13,9 +10,9 @@ Sort5_index_data_path <- "data/FACS_indexing"
 
 
 # Index data files
-files_Sort5 <- list.files(path = Sort5_index_data_path, 
+files_Sort5 <- list.files(path = Sort5_index_data_path, pattern = ".*.csv",
                        full.names = T)
-all_files <- append(files_S3, files_Sort5)
+# all_files <- append(files_Sort5)
 all_files <- files_Sort5
 
 
@@ -52,15 +49,15 @@ extract_sample_name <- function(file_path) {
 
 # Define a function that reads file and reformats index columns to obtain sample ID
 read_index_file <- function(file_path) {
-  file <- read_csv(file_path) %>% 
+  file <- read_csv(all_files[8]) %>% 
     mutate(Index = index_name(Index)) %>% 
     mutate(Sort = extract_sort_number(file_path)) %>% 
     mutate(Plate = paste(extract_sort_number(file_path),
                          extract_plate_number(file_path), sep = "")) %>% 
     mutate(Cell = paste(Plate,
-                             Index,
-                             extract_sample_name(file_path),
-                             sep = "-")) %>% 
+                        Index,
+                        extract_sample_name(file_path),
+                        sep = "-")) %>% 
     mutate(Sample = extract_sample_name(file_path))
   return(file)
 }
