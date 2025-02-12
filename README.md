@@ -36,16 +36,23 @@ These steps take targeted amplicon sequencing FASTQ files and assign a genotype 
 1. Generate a demultiplexing file for use in the TARGET-seq SCpipeline and a metadata file for genotyping analysis:
     - [01_Make_genotyping_demultiplexing_file.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/01_make_genotyping_demultiplexing_file.R)
 
-2. Run the TARGET-seq SCpipeline (https://github.com/albarmeira/TARGET-seq) to demultiplex and map the single-cell genotyping data and generate tables of allelic counts for each mutation locus per cell. Allelic counts are found in the `Summarize` directory.
+2. Run the TARGET-seq SCpipeline (https://github.com/albarmeira/TARGET-seq) to pre-process the targeted single-cell genotyping data:
+    - Demultiplex the data into separate FASTQ files for each cell by running the `GenoDemux_Fastq.sh` script.
+    - Run the `SCgenotype.pl` pipeline script to align reads to the genome, separate cDNA/gDNA amplicons and perform mpileup variant calling. The script generates summary tables of allelic counts for each mutation locus per cell which are found in the `Summarize` directory.
 
-3. Perform genotyping calling for each mutant locus (the second scripts also utilizes a germline SNP to control for allelic drop-out): 
+3. For indels, run the separate [indel preprocessing pipeline](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/indel_preprocessing) since these are often not called correctly by mpileup variant calling:
+    - Create fasta files with the genotyping PCR1 primer sequences. Examples are provided.
+    - Run the [indel_mutation_grep.sh](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/indel_preprocessing/indel_mutation_grep.sh) script. This takes demultiplexed FASTQ files as input and uses `cutadapt` to separate cDNA/gDNA amplicons based on the PCR1 primer sequences. It then uses `fastq-grep` to count the reads with the WT and mutant sequence in each cell. Use a minimal unique sequence for the grep function, e.g. 5 bp either side of the mutation. Depending on the site of the mutation, either the forwards (R1) or the reverse (R2) sequencing reads should be used for allele counting.
+    - The resulting allele count files can be used in genotyping calling analysis in the same way as those from the TARGET-seq pipeline.
+
+4. Perform genotyping calling for each mutant locus (the second scripts also utilizes a germline SNP to control for allelic drop-out): 
     - [02_Genotype_calling_NOC131_DNMT3A_I780T.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/02_Genotype_calling_NOC131_DNMT3A_I780T.R)
     - [03_Genotype_calling_NOC131_DNMT3A_Q606X.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/03_Genotype_calling_NOC131_DNMT3A_Q606X.R)
 
-4. Integrate the genotypes within single cells to assign clonal identities within each sample:
+5. Integrate the genotypes within single cells to assign clonal identities within each sample:
     - [04_Clone_assignment_NOC131.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/04_clone_assignment_NOC131.R)
 
-5. Integrate the FACS indexing and single-cell genotyping data to make a metadata file for multi-omic analysis:
+6. Integrate the FACS indexing and single-cell genotyping data to make a metadata file for multi-omic analysis:
     - [05_Integrate_metadata.R](https://github.com/asgerjakobsen/TARGET-seq-plus/blob/main/code/2_genotyping/05_Integrate_metadata.R)
 
 ## 3. Pre-processing of transcriptome data
