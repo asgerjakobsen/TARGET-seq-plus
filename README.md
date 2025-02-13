@@ -2,11 +2,12 @@
 
 TARGET-seq+ is a modified version of TARGET-seq, a multi-omic method for simultaneous capture of single-cell genotype, RNA-seq, and surface protein expression. By incorporating elements of the Smart-seq3 chemistry, TARGET-seq+ increases the number of cells passing quality filters and the number of genes detected per cell, thus improving the detection of lowly expressed genes, whilst retaining high-fidelity single-cell genotyping. 
 
+This repository contains a collection of scripts for the analysis of TARGET-seq+ data.
+
 For details of the method see our manuscript:
 
 [Jakobsen, Turkalj, Zeng et al,. Selective advantage of mutant stem cells in human clonal hematopoiesis is associated with attenuated response to inflammation and aging, Cell Stem Cell 2024](https://doi.org/10.1016/j.stem.2024.05.010)
-
-This repository contains a collection of scripts for the analysis of TARGET-seq+ data.
+![](Schematic.png "TARGET-seq+ schematic")
 
 ## Analysis overview
 
