@@ -6,7 +6,7 @@ This repository contains a collection of scripts for the analysis of TARGET-seq+
 
 For details of the method see our manuscript:
 
-[Jakobsen, Turkalj, Zeng et al,. Selective advantage of mutant stem cells in human clonal hematopoiesis is associated with attenuated response to inflammation and aging, Cell Stem Cell 2024](https://doi.org/10.1016/j.stem.2024.05.010)
+[Jakobsen, Turkalj, Zeng et al,. Selective advantage of mutant stem cells in human clonal hematopoiesis is associated with attenuated response to inflammation and aging. *Cell Stem Cell* 2024](https://doi.org/10.1016/j.stem.2024.05.010)
 ![](Schematic.png "TARGET-seq+ schematic")
 
 ## Analysis overview
